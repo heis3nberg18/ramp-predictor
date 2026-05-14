@@ -1,0 +1,1 @@
+{"name":"RAMP Risk Predictor","bindleId":"amzn1.bindle.resource.35vyrf2ncsq2pcqughi3lpjbq","runtime":"python3.12","entrypoint":"streamlit run app.py --server.address 0.0.0.0 --server.port 8501 --server.headless true","port":8501}

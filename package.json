@@ -1,0 +1,1 @@
+{"name":"ramp-risk-predictor","version":"2.0.0","description":"RAMP Performance Risk Prediction Dashboard","scripts":{"build-harmony-app":"pip install -r requirements.txt"}}
