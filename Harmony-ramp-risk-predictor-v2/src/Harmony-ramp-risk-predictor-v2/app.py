@@ -400,7 +400,7 @@ elif page == "📊 Predict Performance":
                 display_df = predictions_df[["learner", "composite_score", "predicted_quality",
                                               "risk_prob", "risk_level"]].sort_values("risk_prob", ascending=False)
                 display_df.columns = ["Learner", "Training Score", "Predicted Quality", "Risk Prob", "Risk Level"]
-                styled = display_df.style.map(color_risk, subset=["Risk Level"]).map(
+                styled = display_df.style.applymap(color_risk, subset=["Risk Level"]).applymap(
                     color_score, subset=["Training Score", "Predicted Quality"]
                 ).format({"Training Score": "{:.2f}", "Predicted Quality": "{:.2f}", "Risk Prob": "{:.2f}"})
                 st.dataframe(styled, use_container_width=True, hide_index=True)
@@ -572,7 +572,7 @@ elif page == "📈 Live RAMP Tracker":
                 display_cols = ["Learner", "Current Quality"] + [c for c in pred_df.columns if "Wk" in c] + ["Avg Risk Prob", "Overall Risk"]
                 display_df = pred_df[[c for c in display_cols if c in pred_df.columns]]
 
-                styled = display_df.style.map(color_risk, subset=["Overall Risk"]).map(
+                styled = display_df.style.applymap(color_risk, subset=["Overall Risk"]).applymap(
                     color_score, subset=["Current Quality"] + pred_cols
                 ).format({"Current Quality": "{:.2f}", "Avg Risk Prob": "{:.2f}", **{c: "{:.2f}" for c in pred_cols}})
                 st.dataframe(styled, use_container_width=True, hide_index=True)
@@ -820,32 +820,3 @@ elif page == "🔒 Admin Panel":
                     st.error("🚨 More missed risks than caught — prioritize improving recall.")
         else:
             st.info(f"Admin validation requires {function_type} historical data with outcomes.")
-
-
-# Chat Widget with persistent output
-st.sidebar.divider()
-st.sidebar.subheader("Chat with Data")
-with st.sidebar.form(key="chat_form", clear_on_submit=False):
-   _cq = st.text_input("Ask a question", placeholder="e.g. Who has highest risk?", key="chat_q")
-   _submitted = st.form_submit_button("Ask")
-if _submitted and _cq:
-   from chat_engine import answer_question
-   _hist = None
-   if hist_file_exists:
-       import pandas as _pd
-       if str(hist_file).endswith(".csv"):
-           _hist = _pd.read_csv(hist_file, encoding="utf-8-sig")
-       else:
-           _hist = _pd.read_excel(hist_file)
-       if "Defect" in _hist.columns:
-           _hist["is_defect"] = _hist["Defect"].astype(str).str.strip().str.lower().isin(["y","yes"])
-       for _col in _hist.columns:
-           if "investigator" in str(_col).lower() and "login" in str(_col).lower():
-               _hist = _hist.rename(columns={_col: "Login"})
-               break
-       if "Login" in _hist.columns:
-           _hist["Login"] = _hist["Login"].astype(str).str.split("@").str[0].str.strip()
-   _ctx = {"hist_df": _hist, "predictions_df": None, "ramp_df": None}
-   st.session_state["chat_answer"] = answer_question(_cq, _ctx)
-if "chat_answer" in st.session_state:
-   st.sidebar.markdown(st.session_state["chat_answer"])

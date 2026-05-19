@@ -1,1 +1,14 @@
-{"name":"RAMP Risk Predictor","bindleId":"amzn1.bindle.resource.35vyrf2ncsq2pcqughi3lpjbq","runtime":"python3.12","entrypoint":"streamlit run app.py --server.address 0.0.0.0 --server.port 8501 --server.headless true","port":8501}
+{
+    "name": "RAMP Risk Predictor",
+    "bindleId": "amzn1.bindle.resource.opm4wmiz72ey7vawoc4q",
+    "runtime": "python3.12",
+    "entrypoint": "streamlit run app.py --server.address 0.0.0.0 --server.port 8501 --server.headless true",
+    "port": 8501,
+    "content-security-policy": {},
+    "jobCategories": [
+        "manager"
+    ],
+    "appName": "ramp-risk-predictor",
+    "displayName": "Ramp Risk Predictor",
+    "description": "RAMP Risk Predictor — A performance prediction tool that identifies at-risk learners before and during their RAMP (limited production) phase. It uses training assessment data, historical audit patterns, and machine learning to predict quality outcomes, flag risk areas (case types, knowledge gaps, skill dimensions), and provide actionable coaching recommendations for operations partners across SAP, KYC, and SAM functions."
+}

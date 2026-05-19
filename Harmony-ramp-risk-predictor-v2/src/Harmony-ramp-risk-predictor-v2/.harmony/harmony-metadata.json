@@ -1,0 +1,14 @@
+{
+    "name": "Ramp Risk Predictor App",
+    "bindleId": "amzn1.bindle.resource.opm4wmiz72ey7vawoc4q",
+    "runtime": "python3.12",
+    "entrypoint": "streamlit run app.py --server.address 0.0.0.0 --server.port 8501 --server.headless true",
+    "port": 8501,
+    "content-security-policy": {},
+    "jobCategories": [
+        "manager"
+    ],
+    "appName": "ramp-risk-predictor-v2",
+    "displayName": "Ramp Risk predictor version 2",
+    "description": "NA"
+}

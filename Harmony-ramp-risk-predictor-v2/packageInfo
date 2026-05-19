@@ -1,0 +1,5 @@
+base = {
+  workspace = badasha_Harmony-ramp-risk-predictor-v2;
+  versionSet = live;
+};
+packages = { Harmony-ramp-risk-predictor-v2-1.0 = .; };
